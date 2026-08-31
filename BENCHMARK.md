@@ -167,3 +167,23 @@ python M2/submodules/benchmark/tools/compare.py benchmarks \
 Prefer several repetitions and look at aggregate statistics. A debug build is
 useful for developing a benchmark, but its timings should not be used for
 performance conclusions.
+
+## Comparing garbage collector modes on package workloads
+
+Package-level examples require the M2 interpreter and therefore live in
+`M2/Macaulay2/benchmarks/package-gc`, separate from the C++ engine
+microbenchmarks. The suite runs examples from six distributed packages in
+fresh processes with normal collection and with `GC_DONT_GC=1`, collecting
+internal timings, GC counters, process timings, and peak resident memory.
+
+With `BUILD_BENCHMARKS=ON`, run the comparison using:
+
+```sh
+cmake --build build --target M2-package-gc-benchmarks
+```
+
+The default report and raw data are placed in
+`build/benchmark-results/package-gc`. See the suite's `README.md` for direct
+runner usage and filtering. Disabling collection retains unreachable memory;
+the runner uses fresh bounded processes, but peak memory can still be several
+gigabytes.

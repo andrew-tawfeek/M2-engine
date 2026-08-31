@@ -46,6 +46,10 @@ add_subdirectory(m2) # rename to Core?
 add_subdirectory(packages)
 add_subdirectory(editors)
 
+if(BUILD_BENCHMARKS)
+  add_subdirectory(benchmarks/package-gc)
+endif()
+
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
